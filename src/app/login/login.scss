@@ -1,0 +1,16 @@
+.login-container {
+  display: grid;
+  place-items: center;
+
+  .login-box {
+    margin-top: 8%;
+  }
+
+  .outer-box {
+    margin-top: 5%;
+    border-radius: 20px;
+    width: 400px;
+    height: 374px;
+    background: #161d2f;
+  }
+}
