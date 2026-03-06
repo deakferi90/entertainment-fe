@@ -14,3 +14,12 @@
     background: #161d2f;
   }
 }
+
+.example-form {
+  margin-top: 30px;
+  .example-full-width,
+  .login-btn {
+    width: 80%;
+    margin-left: 10%;
+  }
+}

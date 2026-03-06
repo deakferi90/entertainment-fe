@@ -8,5 +8,48 @@
     <div class="login-inputs text-white">
       <h1 class="text-4xl pt-8 pl-8">Login</h1>
     </div>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          placeholder="Email Adress"
+        />
+        @if (
+          emailFormControl.hasError("email") &&
+          !emailFormControl.hasError("required")
+        ) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+        <!-- @if (emailFormControl.hasError("required")) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        } -->
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          placeholder="Password"
+        />
+        @if (
+          emailFormControl.hasError("email") &&
+          !emailFormControl.hasError("required")
+        ) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+        <!-- @if (emailFormControl.hasError("required")) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        } -->
+      </mat-form-field>
+      <button class="login-btn h-[48px] bg-[#FC4747] text-[#fff] rounded-md">
+        Login to your account
+      </button>
+      <div class="text-center mt-[10px]">
+        <span class="text-[#fff]">Don't have an account?</span>
+        <span class="text-[#FC4747] ml-[5px]"> Sign Up</span>
+      </div>
+    </form>
   </div>
 </div>
