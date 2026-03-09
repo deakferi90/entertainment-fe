@@ -16,11 +16,8 @@
           [formControl]="emailFormControl"
           placeholder="Email Adress"
         />
-        @if (
-          emailFormControl.hasError("email") &&
-          !emailFormControl.hasError("required")
-        ) {
-          <mat-error>Please enter a valid email address</mat-error>
+        @if (emailFormControl.hasError("required")) {
+          <mat-error>Email is required</mat-error>
         }
         <!-- @if (emailFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
@@ -28,18 +25,15 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input
-          type="email"
+          type="password"
           matInput
-          [formControl]="emailFormControl"
+          [formControl]="passwordFormControl"
           placeholder="Password"
         />
-        @if (
-          emailFormControl.hasError("email") &&
-          !emailFormControl.hasError("required")
-        ) {
-          <mat-error>Please enter a valid email address</mat-error>
+        @if (passwordFormControl.hasError("required")) {
+          <mat-error>Password is required</mat-error>
         }
-        <!-- @if (emailFormControl.hasError("required")) {
+        <!-- @if (passwordFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
         } -->
       </mat-form-field>
@@ -48,7 +42,12 @@
       </button>
       <div class="text-center mt-[10px]">
         <span class="text-[#fff]">Don't have an account?</span>
-        <span class="text-[#FC4747] ml-[5px]"> Sign Up</span>
+        <span
+          (click)="redirectoSignUp()"
+          class="text-[#FC4747] ml-[5px] hover:cursor-pointer"
+        >
+          Sign Up</span
+        >
       </div>
     </form>
   </div>

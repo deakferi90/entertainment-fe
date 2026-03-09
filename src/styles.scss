@@ -10,5 +10,47 @@
 
 :host ::ng-deep input::placeholder {
   color: #5a698f;
-  opacity: 1; // ensures the color shows
+  opacity: 1;
+}
+
+input[matInput] {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  border-bottom: 1px solid #fff;
+}
+
+.mat-mdc-input-element {
+  color: #fff !important;
+  opacity: 0.5 !important;
+}
+
+.mat-mdc-input-element::placeholder {
+  color: #ffffffb3 !important;
+  opacity: 0.5 !important;
+}
+
+.mat-mdc-form-field-error {
+  color: red !important;
+}
+.mdc-text-field--filled {
+  background-color: transparent !important;
+}
+
+/* Make the wrapper transparent */
+.mat-mdc-text-field-wrapper {
+  background: transparent !important;
+}
+
+/* Input text color */
+.mat-mdc-input-element {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+/* Placeholder color */
+.mat-mdc-input-element::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
