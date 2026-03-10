@@ -1,99 +1,96 @@
 <div class="login-container">
   <div class="login-box">
-    <div>
-      <img [src]="movieImg" alt="movie image" />
-    </div>
+    <img [src]="movieImg" alt="movie image" />
   </div>
+
   <div class="outer-box">
-    <div class="login-inputs text-white">
-      <h1 class="text-4xl pt-8 pl-8">Sign Up</h1>
-    </div>
-    <form class="example-form">
-      <form class="example-full-width">
+    <h1 class="text-4xl pt-8 pl-8 text-white">Sign Up</h1>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="example-form">
+      <div class="example-full-width">
         <input
           type="email"
           matInput
-          [formControl]="emailFormControl"
-          placeholder="Email Adress"
-          class="bg-transparent text-black focus:bg-transparent custom-input"
+          formControlName="email"
+          placeholder="Email Address"
+          class="bg-transparent text-white focus:bg-transparent custom-input"
         />
-        @if (
-          emailFormControl.hasError("email") &&
-          !emailFormControl.hasError("required")
-        ) {
-          <mat-error>Please enter a valid email address</mat-error>
+        @if (isSubmitted && signupForm.get("email")?.hasError("required")) {
+          <mat-error> Email is required </mat-error>
         }
-        <!-- @if (emailFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
-      </form>
-      <form class="example-full-width no-autofill-bg">
-        <div class="relative w-full">
-          <input
-            matInput
-            [type]="shared.showPassword() ? 'text' : 'password'"
-            [formControl]="passwordFormControl"
-            placeholder="Repeat Password"
-            class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
-          />
+        @if (isSubmitted && signupForm.get("email")?.hasError("email")) {
+          <mat-error> Please enter a valid email </mat-error>
+        }
+      </div>
 
+      <div class="example-full-width relative w-full">
+        <div class="flex items-center relative">
+          <input
+            type="{{ shared.showPassword() ? 'text' : 'password' }}"
+            matInput
+            formControlName="password"
+            placeholder="Password"
+            class="w-full bg-transparent text-white focus:bg-transparent custom-input pr-10"
+          />
           <mat-icon
-            (click)="shared.toggle(shared.showPassword)"
             class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+            (click)="shared.toggle(shared.showPassword)"
           >
             {{ shared.showPassword() ? "visibility_off" : "visibility" }}
           </mat-icon>
         </div>
-        @if (
-          passwordFormControl.hasError("email") &&
-          !passwordFormControl.hasError("required")
-        ) {
-          <mat-error>Please enter a valid password</mat-error>
+        @if (isSubmitted && signupForm.get("password")?.hasError("required")) {
+          <mat-error> Password is required </mat-error>
         }
-        <!-- @if (passwordFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
-      </form>
-      <form class="example-full-width">
-        <div class="relative w-full">
-          <input
-            matInput
-            [type]="shared.showConfirmPassword() ? 'text' : 'password'"
-            [formControl]="confirmPasswordFormControl"
-            placeholder="Repeat Password"
-            class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
-          />
+        @if (isSubmitted && signupForm.get("password")?.hasError("minlength")) {
+          <mat-error> Password must be at least 8 characters </mat-error>
+        }
+        @if (isSubmitted && signupForm.get("password")?.hasError("pattern")) {
+          <mat-error>
+            Password must include uppercase, lowercase & number
+          </mat-error>
+        }
+      </div>
 
+      <div class="example-full-width relative w-full">
+        <div class="flex items-center relative">
+          <input
+            type="{{ shared.showConfirmPassword() ? 'text' : 'password' }}"
+            matInput
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            class="w-full bg-transparent text-white focus:bg-transparent custom-input pr-10"
+          />
           <mat-icon
-            (click)="shared.toggle(shared.showConfirmPassword)"
             class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+            (click)="shared.toggle(shared.showConfirmPassword)"
           >
             {{ shared.showConfirmPassword() ? "visibility_off" : "visibility" }}
           </mat-icon>
         </div>
         @if (
-          passwordFormControl.hasError("email") &&
-          !passwordFormControl.hasError("required")
+          isSubmitted && signupForm.get("confirmPassword")?.hasError("required")
         ) {
-          <mat-error>Please enter a valid password</mat-error>
+          <mat-error> Confirm Password is required </mat-error>
         }
-        <!-- @if (passwordFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
-      </form>
+      </div>
+
       <button
-        class="login-btn h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md"
+        type="submit"
+        class="login-btn h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md cursor-pointer"
       >
-        Create an account
+        Create an Account
       </button>
+
+      <!-- Redirect to login -->
       <div class="text-center mt-[10px]">
-        <span class="text-[#fff]">ALready have an account?</span>
+        <span class="text-[#fff]">Already have an account?</span>
         <span
           (click)="redirectoLogin()"
           class="text-[#FC4747] ml-[5px] hover:cursor-pointer"
         >
-          Login</span
-        >
+          Login
+        </span>
       </div>
     </form>
   </div>

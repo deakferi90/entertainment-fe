@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Shared } from '../shared/shared';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +33,10 @@ export class Login {
     password: new FormControl('', [Validators.required]),
   });
 
+  toastr = inject(ToastrService);
   submitted = false;
+  authService = inject(AuthService);
 
-  movieImg: string = 'assets/icon-movie.png';
   public shared = inject(Shared);
   private router = inject(Router);
 
@@ -48,16 +51,28 @@ export class Login {
     Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/),
   ]);
 
+  movieImg: string = 'assets/icon-movie.png';
+
   redirectoSignUp() {
     this.router.navigate(['signup']);
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.loginForm.invalid) {
+      this.toastr.error('Please enter valid email and password.');
       return;
     }
-    console.log('Form submitted successfully!', this.loginForm.value);
+
+    this.submitted = true;
+
+    this.authService.login(this.loginForm.value).subscribe(
+      (response: string) => {
+        this.toastr.success('You successfully logged in!');
+        this.router.navigate(['/dashboard']);
+      },
+      (error: string) => {
+        this.toastr.error('Your login credentials are incorrect!');
+      },
+    );
   }
 }
