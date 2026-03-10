@@ -5,32 +5,37 @@
     </div>
   </div>
   <div class="outer-box">
-    <div class="login-inputs text-white">
-      <h1 class="text-4xl pt-8 pl-8">Login</h1>
-    </div>
-    <form class="example-full-width no-autofill-bg custom-w">
+    <h1 class="text-4xl pt-8 pl-8 text-white">Login</h1>
+
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="example-full-width no-autofill-bg custom-w"
+    >
+      <!-- Email input -->
       <input
         type="email"
         matInput
-        [formControl]="emailFormControl"
-        placeholder="Email Adress"
+        formControlName="email"
+        placeholder="Email Address"
         class="bg-transparent text-white focus:bg-transparent custom-input"
       />
+      <mat-error
+        *ngIf="submitted && loginForm.get('email')?.hasError('required')"
+      >
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="submitted && loginForm.get('email')?.hasError('email')">
+        Enter a valid email
+      </mat-error>
 
-      @if (emailFormControl.hasError("required")) {
-        <mat-error>Email is required</mat-error>
-      }
-      <!-- @if (emailFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
-    </form>
-    <form class="example-full-width no-autofill-bg custom-w">
-      <div class="relative w-full">
+      <!-- Password input -->
+      <div class="relative w-full mt-4">
         <input
           matInput
           [type]="shared.showPassword() ? 'text' : 'password'"
-          [formControl]="passwordFormControl"
-          placeholder="Repeat Password"
+          formControlName="password"
+          placeholder="Password"
           class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
         />
 
@@ -41,26 +46,29 @@
           {{ shared.showPassword() ? "visibility_off" : "visibility" }}
         </mat-icon>
       </div>
-      @if (passwordFormControl.hasError("required")) {
-        <mat-error>Password is required</mat-error>
-      }
-      <!-- @if (passwordFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
+      <mat-error
+        *ngIf="submitted && loginForm.get('password')?.hasError('required')"
+      >
+        Password is required
+      </mat-error>
+
+      <!-- Submit button -->
+      <button
+        type="submit"
+        class="login-btn w-full h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md cursor-pointer"
+      >
+        Login to your account
+      </button>
     </form>
-    <button
-      class="login-btn h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md custom-w"
-    >
-      Login to your account
-    </button>
+
     <div class="text-center mt-[10px]">
       <span class="text-[#fff]">Don't have an account?</span>
       <span
         (click)="redirectoSignUp()"
         class="text-[#FC4747] ml-[5px] hover:cursor-pointer"
       >
-        Sign Up</span
-      >
+        Sign Up
+      </span>
     </div>
   </div>
 </div>
