@@ -10,4 +10,5 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('entertainment-web-app-fe');
+  showPassword: boolean = false;
 }

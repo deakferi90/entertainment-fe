@@ -35,22 +35,64 @@ input[matInput] {
 .mat-mdc-form-field-error {
   color: red !important;
 }
-.mdc-text-field--filled {
+
+.mdc-text-field--filled,
+.mat-mdc-text-field-wrapper {
   background-color: transparent !important;
 }
 
-/* Make the wrapper transparent */
-.mat-mdc-text-field-wrapper {
-  background: transparent !important;
-}
-
 /* Input text color */
-.mat-mdc-input-element {
-  color: #ffffff !important;
+.mat-mdc-input-element input {
   background: transparent !important;
+  color: #fff; /* keep text white */
 }
 
 /* Placeholder color */
 .mat-mdc-input-element::placeholder {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.mat-mdc-form-field-infix {
+  padding: 0 !important;
+}
+
+.mat-mdc-input-element:-webkit-autofill,
+.mat-mdc-input-element:-webkit-autofill:hover,
+.mat-mdc-input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+.custom-input {
+  border: 1px solid #98908b;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-internal-autofill-selected {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important; /* text stays white */
+  background-color: transparent !important; /* remove autofill bg */
+  transition: background-color 5000s ease-in-out 0s; /* prevents flash */
+}
+
+.mat-mdc-input-element:-webkit-autofill,
+.mat-mdc-input-element:-webkit-autofill:hover,
+.mat-mdc-input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: black !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

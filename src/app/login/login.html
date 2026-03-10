@@ -8,47 +8,59 @@
     <div class="login-inputs text-white">
       <h1 class="text-4xl pt-8 pl-8">Login</h1>
     </div>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input
-          type="email"
-          matInput
-          [formControl]="emailFormControl"
-          placeholder="Email Adress"
-        />
-        @if (emailFormControl.hasError("required")) {
-          <mat-error>Email is required</mat-error>
-        }
-        <!-- @if (emailFormControl.hasError("required")) {
+    <form class="example-full-width no-autofill-bg custom-w">
+      <input
+        type="email"
+        matInput
+        [formControl]="emailFormControl"
+        placeholder="Email Adress"
+        class="bg-transparent text-white focus:bg-transparent custom-input"
+      />
+
+      @if (emailFormControl.hasError("required")) {
+        <mat-error>Email is required</mat-error>
+      }
+      <!-- @if (emailFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
         } -->
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          type="password"
-          matInput
-          [formControl]="passwordFormControl"
-          placeholder="Password"
-        />
-        @if (passwordFormControl.hasError("required")) {
-          <mat-error>Password is required</mat-error>
-        }
-        <!-- @if (passwordFormControl.hasError("required")) {
-          <mat-error>Email is <strong>required</strong></mat-error>
-        } -->
-      </mat-form-field>
-      <button class="login-btn h-[48px] bg-[#FC4747] text-[#fff] rounded-md">
-        Login to your account
-      </button>
-      <div class="text-center mt-[10px]">
-        <span class="text-[#fff]">Don't have an account?</span>
-        <span
-          (click)="redirectoSignUp()"
-          class="text-[#FC4747] ml-[5px] hover:cursor-pointer"
-        >
-          Sign Up</span
-        >
-      </div>
     </form>
+    <form class="example-full-width no-autofill-bg custom-w">
+      <div class="relative w-full">
+        <input
+          matInput
+          [type]="shared.showPassword() ? 'text' : 'password'"
+          [formControl]="passwordFormControl"
+          placeholder="Repeat Password"
+          class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
+        />
+
+        <mat-icon
+          (click)="shared.toggle(shared.showPassword)"
+          class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+        >
+          {{ shared.showPassword() ? "visibility_off" : "visibility" }}
+        </mat-icon>
+      </div>
+      @if (passwordFormControl.hasError("required")) {
+        <mat-error>Password is required</mat-error>
+      }
+      <!-- @if (passwordFormControl.hasError("required")) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        } -->
+    </form>
+    <button
+      class="login-btn h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md custom-w"
+    >
+      Login to your account
+    </button>
+    <div class="text-center mt-[10px]">
+      <span class="text-[#fff]">Don't have an account?</span>
+      <span
+        (click)="redirectoSignUp()"
+        class="text-[#FC4747] ml-[5px] hover:cursor-pointer"
+      >
+        Sign Up</span
+      >
+    </div>
   </div>
 </div>

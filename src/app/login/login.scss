@@ -10,8 +10,8 @@
     margin-top: 5%;
     border-radius: 20px;
     width: 400px;
-    height: 374px;
     background: #161d2f;
+    padding-bottom: 30px;
   }
 }
 
@@ -22,4 +22,52 @@
     width: 80%;
     margin-left: 10%;
   }
+}
+
+@layer utilities {
+  .no-autofill-bg input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: white !important;
+    -webkit-background-origin: transparent !important;
+  }
+}
+
+.custom-input {
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.parent-container-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.parent-container-input input {
+  width: 100%;
+  padding-right: 40px; /* space for the eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.custom-input {
+  background-color: transparent;
+  padding: 12px 20px;
+  border-radius: 12px;
+}
+
+.custom-input:focus {
+  background-color: transparent;
+}
+
+.custom-w {
+  width: 80%;
+  margin-left: 10%;
 }

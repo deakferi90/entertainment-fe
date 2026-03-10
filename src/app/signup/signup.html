@@ -9,12 +9,13 @@
       <h1 class="text-4xl pt-8 pl-8">Sign Up</h1>
     </div>
     <form class="example-form">
-      <mat-form-field class="example-full-width">
+      <form class="example-full-width">
         <input
           type="email"
           matInput
           [formControl]="emailFormControl"
           placeholder="Email Adress"
+          class="bg-transparent text-black focus:bg-transparent custom-input"
         />
         @if (
           emailFormControl.hasError("email") &&
@@ -25,14 +26,24 @@
         <!-- @if (emailFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
         } -->
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          type="password"
-          matInput
-          [formControl]="passwordFormControl"
-          placeholder="Password"
-        />
+      </form>
+      <form class="example-full-width no-autofill-bg">
+        <div class="relative w-full">
+          <input
+            matInput
+            [type]="shared.showPassword() ? 'text' : 'password'"
+            [formControl]="passwordFormControl"
+            placeholder="Repeat Password"
+            class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
+          />
+
+          <mat-icon
+            (click)="shared.toggle(shared.showPassword)"
+            class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+          >
+            {{ shared.showPassword() ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </div>
         @if (
           passwordFormControl.hasError("email") &&
           !passwordFormControl.hasError("required")
@@ -42,14 +53,24 @@
         <!-- @if (passwordFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
         } -->
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input
-          type="password"
-          matInput
-          [formControl]="passwordFormControl"
-          placeholder="Repeat Password"
-        />
+      </form>
+      <form class="example-full-width">
+        <div class="relative w-full">
+          <input
+            matInput
+            [type]="shared.showConfirmPassword() ? 'text' : 'password'"
+            [formControl]="confirmPasswordFormControl"
+            placeholder="Repeat Password"
+            class="w-full bg-transparent text-black focus:bg-transparent custom-input pr-10"
+          />
+
+          <mat-icon
+            (click)="shared.toggle(shared.showConfirmPassword)"
+            class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+          >
+            {{ shared.showConfirmPassword() ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </div>
         @if (
           passwordFormControl.hasError("email") &&
           !passwordFormControl.hasError("required")
@@ -59,8 +80,10 @@
         <!-- @if (passwordFormControl.hasError("required")) {
           <mat-error>Email is <strong>required</strong></mat-error>
         } -->
-      </mat-form-field>
-      <button class="login-btn h-[48px] bg-[#FC4747] text-[#fff] rounded-md">
+      </form>
+      <button
+        class="login-btn h-[48px] mt-[10px] bg-[#FC4747] text-[#fff] rounded-md"
+      >
         Create an account
       </button>
       <div class="text-center mt-[10px]">
