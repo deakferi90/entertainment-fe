@@ -1,1 +1,26 @@
-<p class="text-white">dashboard works!</p>
+<div class="flex gap-[30px]">
+  <div class="menu-wrapper-container flex items-center justify-center">
+    <div class="menu-wrapper">
+      <div
+        class="inner-menu-nav flex items-center flex-col gap-10 justify-center"
+      >
+        <img [src]="movieImg" class="mt-[30px] mb-[30px]" alt="movie image" />
+        @for (item of menuItems; track $index) {
+          <ng-container>
+            <a [routerLink]="[item.route]">
+              <img
+                [class.active]="selectedMenu === item.label"
+                [src]="item.imgSrc"
+                [alt]="item.alt"
+              />
+            </a>
+          </ng-container>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
