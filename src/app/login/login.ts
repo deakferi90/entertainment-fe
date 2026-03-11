@@ -58,12 +58,12 @@ export class Login {
   }
 
   onSubmit() {
+    this.submitted = true;
+
     if (this.loginForm.invalid) {
       this.toastr.error('Please enter valid email and password.');
       return;
     }
-
-    this.submitted = true;
 
     this.authService.login(this.loginForm.value).subscribe(
       (response: string) => {

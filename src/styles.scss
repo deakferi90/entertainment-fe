@@ -78,9 +78,9 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-internal-autofill-selected {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-  -webkit-text-fill-color: #ffffff !important; /* text stays white */
-  background-color: transparent !important; /* remove autofill bg */
-  transition: background-color 5000s ease-in-out 0s; /* prevents flash */
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .mat-mdc-input-element:-webkit-autofill,
