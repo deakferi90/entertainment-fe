@@ -68,11 +68,14 @@ export class Login {
     }
 
     this.authService.login(this.loginForm.value).subscribe(
-      (response: string) => {
-        this.toastr.success('You successfully logged in!');
+      (response: any) => {
+        this.authService.saveToken(response.token);
+
         this.router.navigate(['/dashboard']);
+
+        this.toastr.success('You successfully logged in!');
       },
-      (error: string) => {
+      (error) => {
         this.toastr.error('Your login credentials are incorrect!');
         this.submitted = false;
       },
