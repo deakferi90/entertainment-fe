@@ -12,6 +12,10 @@
     width: 400px;
     background: #161d2f;
     padding-bottom: 30px;
+
+    @media screen and (max-width: 410px) {
+      width: 360px;
+    }
   }
 }
 
