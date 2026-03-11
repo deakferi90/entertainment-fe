@@ -30,7 +30,10 @@ import { AuthService } from '../auth/auth.service';
 export class Login {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
   });
 
   toastr = inject(ToastrService);
@@ -61,7 +64,6 @@ export class Login {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
-      this.toastr.error('Please enter valid email and password.');
       return;
     }
 
@@ -72,6 +74,7 @@ export class Login {
       },
       (error: string) => {
         this.toastr.error('Your login credentials are incorrect!');
+        this.submitted = false;
       },
     );
   }
