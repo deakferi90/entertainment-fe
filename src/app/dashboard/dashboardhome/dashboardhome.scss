@@ -1,0 +1,9 @@
+.movie-info {
+  display: flex;
+  align-items: center;
+}
+
+.movie-info span:not(:last-child)::after {
+  content: " • ";
+  margin: 0 6px;
+}

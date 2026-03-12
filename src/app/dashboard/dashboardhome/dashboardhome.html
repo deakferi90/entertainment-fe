@@ -1,1 +1,49 @@
-<p class="text-white">dashboardhome works!</p>
+<div class="movies-container">
+  <input
+    type="text"
+    id="first_name"
+    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body w-[200px]"
+    placeholder="Search for movies or TV series"
+    required
+  />
+  <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Trending</h1>
+  <div class="grid grid-cols-3 text-white">
+    @for (movie of movieList; track $index) {
+      @if (movie.isTrending === true) {
+        <div class="relative w-[328px] h-[220px]">
+          <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
+          <div class="absolute bottom-[15px] left-[15px]">
+            <div class="flex items-center text-gray-300 text-sm">
+              <span>{{ movie.year }}</span>
+              <span class="mx-2">•</span>
+              <span>{{ movie.category }}</span>
+              <span class="mx-2">•</span>
+              <span>{{ movie.rating }}</span>
+            </div>
+            <h2 class="text-2xl">
+              {{ movie.title }}
+            </h2>
+          </div>
+        </div>
+      }
+    }
+  </div>
+  <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Recommended for you</h1>
+  <div class="grid grid-cols-4 text-white">
+    @for (movie of movieList; track $index) {
+      <div class="text-white relative w-[328px]">
+        <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
+        <div class="flex items-center text-gray-300 text-sm">
+          <span>{{ movie.year }}</span>
+          <span class="mx-2">•</span>
+          <span>{{ movie.category }}</span>
+          <span class="mx-2">•</span>
+          <span>{{ movie.rating }}</span>
+        </div>
+        <h2 class="text-2xl">
+          {{ movie.title }}
+        </h2>
+      </div>
+    }
+  </div>
+</div>
