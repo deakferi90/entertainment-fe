@@ -95,3 +95,22 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 16px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #8d7b7b;
+  border-radius: 8px;
+  border: 2px solid #f0f0f0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #707070;
+}

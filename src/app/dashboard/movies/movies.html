@@ -1,1 +1,5 @@
-<p class="text-white">movies works!</p>
+<div class="movies-container">
+  @for (movie of movieList; track $index) {
+    <div class="text-white">{{ movie.title }}</div>
+  }
+</div>

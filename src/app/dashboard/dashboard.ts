@@ -19,6 +19,7 @@ export class DashboardMenu {
   movie: string = 'assets/movie.png';
   tv: string = 'assets/icon-tv.png';
   bookmark: string = 'assets/bookmark.png';
+  profile: string = 'assets/person.png';
   selectedMenu: string = '';
 
   constructor(private router: Router) {
