@@ -4,7 +4,11 @@
       <div
         class="inner-menu-nav flex items-center flex-col gap-10 justify-center"
       >
-        <img [src]="movieImg" class="mt-[30px] mb-[30px]" alt="movie image" />
+        <img
+          [src]="movieImg"
+          class="mt-[30px] mb-[30px] pointer-events-none"
+          alt="movie image"
+        />
         @for (item of menuItems; track $index) {
           <ng-container>
             <a [routerLink]="[item.route]">

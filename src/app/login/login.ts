@@ -71,7 +71,7 @@ export class Login {
       (response: any) => {
         this.authService.saveToken(response.token);
 
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home/dashboard']);
 
         this.toastr.success('You successfully logged in!');
       },
