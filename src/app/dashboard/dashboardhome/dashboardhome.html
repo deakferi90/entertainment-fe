@@ -29,11 +29,13 @@
     }
   </div>
   <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Recommended for you</h1>
-  <div class="grid grid-cols-4 text-white">
+  <div
+    class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
+  >
     @for (movie of movieList; track $index) {
       <div class="text-white relative w-[328px]">
         <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
-        <div class="flex items-center text-gray-300 text-sm">
+        <div class="flex items-center mt-[10px] text-gray-300 text-sm">
           <span>{{ movie.year }}</span>
           <span class="mx-2">•</span>
           <span>{{ movie.category }}</span>
