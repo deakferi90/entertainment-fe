@@ -22,7 +22,9 @@ export class Dashboardhome {
       movies: this.movieService.getAllMovies(),
       series: this.movieService.getTvSeries(),
     }).subscribe(({ movies, series }) => {
-      this.allContent = [...movies, ...series];
+      this.allContent = [...movies, ...series].sort((a, b) =>
+        a.title.localeCompare(b.title),
+      );
     });
   }
 }

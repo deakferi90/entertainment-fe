@@ -2,12 +2,12 @@
   <input
     type="text"
     id="first_name"
-    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body w-[200px]"
+    class="bg-neutral-secondary-medium border border-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block px-3 py-2.5 shadow-xs placeholder:text-body w-4/5"
     placeholder="Search for movies or TV series"
     required
   />
-  <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Trending</h1>
-  <div class="grid grid-cols-3 text-white">
+  <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Trending</h1>
+  <div class="grid grid-cols-3 gap-6 text-white">
     @for (movie of allContent; track $index) {
       @if (movie.isTrending === true) {
         <div class="relative w-[328px] h-[220px]">
@@ -28,7 +28,7 @@
       }
     }
   </div>
-  <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Recommended for you</h1>
+  <h1 class="text-white text-3xl mt-[25px] mb-[20px]">Recommended for you</h1>
   <div
     class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
   >
