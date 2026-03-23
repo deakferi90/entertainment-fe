@@ -8,22 +8,19 @@ import { CommonModule } from '@angular/common';
   selector: 'app-dashboardhome',
   imports: [CommonModule],
   templateUrl: './dashboardhome.html',
-  styleUrl: './dashboardhome.scss',
+  styleUrls: ['./dashboardhome.scss'],
 })
 export class Dashboardhome {
   allContent = signal<MovieInterface[]>([]);
   filterText = signal('');
-  bookmarkedItems = signal<boolean[]>([]);
-  selectedIndex: number | null = null;
+  bookmarkedItems = signal<Record<string, boolean>>({});
+  selectedItem: MovieInterface | null = null;
 
   displayItems = computed(() => {
     const text = this.filterText().toLowerCase();
-
     return this.allContent()
       .filter((item) => item.title.toLowerCase().includes(text))
-      .sort((a, b) => {
-        return a.title.localeCompare(b.title);
-      });
+      .sort((a, b) => a.title.localeCompare(b.title));
   });
 
   constructor(private movieService: Dashboardservice) {}
@@ -41,17 +38,20 @@ export class Dashboardhome {
 
       combined.sort((a, b) => a.title.localeCompare(b.title));
       this.allContent.set(combined);
-      this.bookmarkedItems.set(new Array(combined.length).fill(false));
+
+      const bookmarks: Record<string, boolean> = {};
+      combined.forEach((item) => (bookmarks[item.title] = false));
+      this.bookmarkedItems.set(bookmarks);
     });
   }
 
-  toggleBookmark(index: number) {
+  toggleBookmark(item: MovieInterface) {
     const current = this.bookmarkedItems();
-    current[index] = !current[index];
-    this.bookmarkedItems.set([...current]);
+    current[item.title] = !current[item.title]; // toggle by unique key
+    this.bookmarkedItems.set({ ...current }); // update signal
   }
 
-  onSelect(index: number) {
-    this.selectedIndex = index;
+  onSelect(item: MovieInterface) {
+    this.selectedItem = item;
   }
 }

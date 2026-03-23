@@ -14,10 +14,10 @@
         <div class="relative w-[328px] h-[220px]">
           <div
             class="bookmark-container cursor-pointer"
-            (click)="toggleBookmark(i)"
+            (click)="toggleBookmark(item)"
           >
             <svg
-              (click)="onSelect(i)"
+              (click)="onSelect(item)"
               class="w-8 h-8 transition-colors duration-200"
               viewBox="0 0 20 22"
               fill="none"
@@ -32,7 +32,9 @@
                   stroke="currentColor"
                   stroke-width="1.5"
                   fill="none"
-                  [attr.fill]="bookmarkedItems()[i] ? 'white' : 'transparent'"
+                  [attr.fill]="
+                    bookmarkedItems()[item.title] ? 'white' : 'transparent'
+                  "
                 />
               </g>
             </svg>
@@ -63,10 +65,10 @@
       <div class="text-white relative w-[328px]">
         <div
           class="bookmark-container cursor-pointer"
-          (click)="toggleBookmark(i)"
+          (click)="toggleBookmark(item)"
         >
           <svg
-            (click)="onSelect(i)"
+            (click)="onSelect(item)"
             class="w-8 h-8 transition-colors duration-200"
             viewBox="0 0 20 22"
             fill="none"
@@ -81,7 +83,9 @@
                 stroke="currentColor"
                 stroke-width="1.5"
                 fill="none"
-                [attr.fill]="bookmarkedItems()[i] ? 'white' : 'transparent'"
+                [attr.fill]="
+                  bookmarkedItems()[item.title] ? 'white' : 'transparent'
+                "
               />
             </g>
           </svg>
