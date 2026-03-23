@@ -7,3 +7,17 @@
   content: " • ";
   margin: 0 6px;
 }
+
+.bookmark-container {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(16, 20, 30, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
