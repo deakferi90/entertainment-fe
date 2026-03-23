@@ -11,18 +11,26 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboardhome.scss',
 })
 export class Dashboardhome {
+  // All movies and series
   allContent = signal<MovieInterface[]>([]);
+  // Search input
   filterText = signal('');
+  // Bookmark states
   bookmarkedItems = signal<boolean[]>([]);
+  // Optional: selected item index
   selectedIndex: number | null = null;
 
+  // Computed property: filtered + sorted
   displayItems = computed(() => {
     const text = this.filterText().toLowerCase();
+
     return this.allContent()
       .filter((item) => item.title.toLowerCase().includes(text))
       .sort((a, b) => {
+        // Trending first
         if (a.isTrending && !b.isTrending) return -1;
         if (!a.isTrending && b.isTrending) return 1;
+        // Alphabetical by title
         return a.title.localeCompare(b.title);
       });
   });
@@ -30,26 +38,31 @@ export class Dashboardhome {
   constructor(private movieService: Dashboardservice) {}
 
   ngOnInit() {
-    this.loadAll();
+    this.loadAllContent();
   }
 
-  loadAll() {
+  // Load movies + series
+  loadAllContent() {
     forkJoin({
       movies: this.movieService.getAllMovies(),
       series: this.movieService.getTvSeries(),
     }).subscribe(({ movies, series }) => {
-      const data = [...movies, ...series];
-      this.allContent.set(data);
-      this.bookmarkedItems.set(new Array(data.length).fill(false));
+      const combined = [...movies, ...series];
+
+      combined.sort((a, b) => a.title.localeCompare(b.title));
+      this.allContent.set(combined);
+      this.bookmarkedItems.set(new Array(combined.length).fill(false));
     });
   }
 
+  // Toggle bookmark
   toggleBookmark(index: number) {
     const current = this.bookmarkedItems();
     current[index] = !current[index];
     this.bookmarkedItems.set([...current]);
   }
 
+  // Select an item
   onSelect(index: number) {
     this.selectedIndex = index;
   }
