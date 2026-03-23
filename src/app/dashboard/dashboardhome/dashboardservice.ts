@@ -8,10 +8,15 @@ import { Observable } from 'rxjs';
 })
 export class Dashboardservice {
   private moviesUrl = `http://localhost:5000/api/movies`;
+  private tvSeriesURL = `http://localhost:5000/api/tv`;
 
   constructor(private http: HttpClient) {}
 
   getAllMovies(): Observable<MovieInterface[]> {
     return this.http.get<MovieInterface[]>(this.moviesUrl);
+  }
+
+  getTvSeries(): Observable<MovieInterface[]> {
+    return this.http.get<any>(this.tvSeriesURL);
   }
 }

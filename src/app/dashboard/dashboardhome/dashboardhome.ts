@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { Dashboardservice } from './dashboardservice';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-dashboardhome',
@@ -9,16 +10,19 @@ import { Dashboardservice } from './dashboardservice';
   styleUrl: './dashboardhome.scss',
 })
 export class Dashboardhome {
-  movieList: MovieInterface[] = [];
+  allContent: MovieInterface[] = [];
   constructor(private movieService: Dashboardservice) {}
 
   ngOnInit() {
-    this.displayMovies();
+    this.displayAll();
   }
 
-  displayMovies() {
-    this.movieService.getAllMovies().subscribe((movies) => {
-      this.movieList = movies;
+  displayAll() {
+    forkJoin({
+      movies: this.movieService.getAllMovies(),
+      series: this.movieService.getTvSeries(),
+    }).subscribe(({ movies, series }) => {
+      this.allContent = [...movies, ...series];
     });
   }
 }

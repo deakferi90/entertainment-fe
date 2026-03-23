@@ -8,7 +8,7 @@
   />
   <h1 class="text-white text-3xl mt-[40px] mb-[30px]">Trending</h1>
   <div class="grid grid-cols-3 text-white">
-    @for (movie of movieList; track $index) {
+    @for (movie of allContent; track $index) {
       @if (movie.isTrending === true) {
         <div class="relative w-[328px] h-[220px]">
           <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
@@ -32,7 +32,7 @@
   <div
     class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
   >
-    @for (movie of movieList; track $index) {
+    @for (movie of allContent; track $index) {
       <div class="text-white relative w-[328px]">
         <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
         <div class="flex items-center mt-[10px] text-gray-300 text-sm">
