@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { Dashboardservice } from './dashboardservice';
 import { forkJoin } from 'rxjs';
@@ -10,7 +10,8 @@ import { forkJoin } from 'rxjs';
   styleUrl: './dashboardhome.scss',
 })
 export class Dashboardhome {
-  allContent: MovieInterface[] = [];
+  allContent = signal<MovieInterface[]>([]);
+  filterText = signal('');
   constructor(private movieService: Dashboardservice) {}
 
   ngOnInit() {
@@ -22,9 +23,21 @@ export class Dashboardhome {
       movies: this.movieService.getAllMovies(),
       series: this.movieService.getTvSeries(),
     }).subscribe(({ movies, series }) => {
-      this.allContent = [...movies, ...series].sort((a, b) =>
-        a.title.localeCompare(b.title),
+      this.allContent.set(
+        [...movies, ...series].sort((a, b) => a.title.localeCompare(b.title)),
       );
     });
+  }
+
+  filteredItems = computed(() => {
+    const text = this.filterText();
+    return this.allContent().filter((item) =>
+      item.title.toLowerCase().includes(text),
+    );
+  });
+
+  filterSearch(event: Event) {
+    const val = (event.target as HTMLInputElement).value;
+    this.filterText.set(val);
   }
 }

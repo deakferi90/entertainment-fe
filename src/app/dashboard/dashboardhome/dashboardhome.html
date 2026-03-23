@@ -2,26 +2,27 @@
   <input
     type="text"
     id="first_name"
-    class="bg-neutral-secondary-medium border border-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block px-3 py-2.5 shadow-xs placeholder:text-body w-4/5"
+    (input)="filterText.set($any($event.target).value)"
+    class="bg-neutral-secondary-medium border border-white text-heading text-white text-sm rounded-base focus:ring-brand focus:border-brand block px-3 py-2.5 shadow-xs placeholder:text-body w-4/5"
     placeholder="Search for movies or TV series"
     required
   />
   <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Trending</h1>
   <div class="grid grid-cols-3 gap-6 text-white">
-    @for (movie of allContent; track $index) {
-      @if (movie.isTrending === true) {
+    @for (item of allContent(); track $index) {
+      @if (item.isTrending === true) {
         <div class="relative w-[328px] h-[220px]">
-          <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
+          <img [src]="item.thumbnail.regular.small" alt="movie-image" />
           <div class="absolute bottom-[15px] left-[15px]">
             <div class="flex items-center text-gray-300 text-sm">
-              <span>{{ movie.year }}</span>
+              <span>{{ item.year }}</span>
               <span class="mx-2">•</span>
-              <span>{{ movie.category }}</span>
+              <span>{{ item.category }}</span>
               <span class="mx-2">•</span>
-              <span>{{ movie.rating }}</span>
+              <span>{{ item.rating }}</span>
             </div>
             <h2 class="text-2xl">
-              {{ movie.title }}
+              {{ item.title }}
             </h2>
           </div>
         </div>
@@ -32,18 +33,18 @@
   <div
     class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
   >
-    @for (movie of allContent; track $index) {
+    @for (item of filteredItems(); track $index) {
       <div class="text-white relative w-[328px]">
-        <img [src]="movie.thumbnail.regular.small" alt="movie-image" />
+        <img [src]="item.thumbnail.regular.small" alt="movie-image" />
         <div class="flex items-center mt-[10px] text-gray-300 text-sm">
-          <span>{{ movie.year }}</span>
+          <span>{{ item.year }}</span>
           <span class="mx-2">•</span>
-          <span>{{ movie.category }}</span>
+          <span>{{ item.category }}</span>
           <span class="mx-2">•</span>
-          <span>{{ movie.rating }}</span>
+          <span>{{ item.rating }}</span>
         </div>
         <h2 class="text-2xl">
-          {{ movie.title }}
+          {{ item.title }}
         </h2>
       </div>
     }
