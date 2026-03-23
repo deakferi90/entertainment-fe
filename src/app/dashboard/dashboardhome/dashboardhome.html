@@ -12,7 +12,10 @@
     @for (item of allContent(); track $index; let i = $index) {
       @if (item.isTrending === true) {
         <div class="relative w-[328px] h-[220px]">
-          <div class="bookmark-container" (click)="toggleBookmark(i)">
+          <div
+            class="bookmark-container cursor-pointer"
+            (click)="toggleBookmark(i)"
+          >
             <svg
               (click)="onSelect(i)"
               class="w-8 h-8 transition-colors duration-200"
@@ -56,12 +59,15 @@
   <div
     class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
   >
-    @for (item of filteredItems(); track $index; let i = $index) {
+    @for (item of allContent(); track $index; let i = $index) {
       <div class="text-white relative w-[328px]">
-        <div class="bookmark-container" (click)="toggleBookmark(i)">
+        <div
+          class="bookmark-container cursor-pointer"
+          (click)="toggleBookmark(i)"
+        >
           <svg
             (click)="onSelect(i)"
-            class="w-8 h-8 transition-colors duration-200 cursor-pointer"
+            class="w-8 h-8 transition-colors duration-200"
             viewBox="0 0 20 22"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

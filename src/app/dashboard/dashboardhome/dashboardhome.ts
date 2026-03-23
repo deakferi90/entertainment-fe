@@ -12,48 +12,45 @@ import { CommonModule } from '@angular/common';
 })
 export class Dashboardhome {
   allContent = signal<MovieInterface[]>([]);
-  bookmark: string = 'assets/bookmark2.svg';
   filterText = signal('');
-  bookmarked = signal(false);
-  selectedIndex: number | null = null;
   bookmarkedItems = signal<boolean[]>([]);
+  selectedIndex: number | null = null;
+
+  displayItems = computed(() => {
+    const text = this.filterText().toLowerCase();
+    return this.allContent()
+      .filter((item) => item.title.toLowerCase().includes(text))
+      .sort((a, b) => {
+        if (a.isTrending && !b.isTrending) return -1;
+        if (!a.isTrending && b.isTrending) return 1;
+        return a.title.localeCompare(b.title);
+      });
+  });
+
   constructor(private movieService: Dashboardservice) {}
 
   ngOnInit() {
-    this.displayAll();
+    this.loadAll();
   }
 
-  onSelect(index: number) {
-    this.selectedIndex = index;
-  }
-
-  displayAll() {
+  loadAll() {
     forkJoin({
       movies: this.movieService.getAllMovies(),
       series: this.movieService.getTvSeries(),
     }).subscribe(({ movies, series }) => {
       const data = [...movies, ...series];
       this.allContent.set(data);
-
       this.bookmarkedItems.set(new Array(data.length).fill(false));
     });
-  }
-
-  filteredItems = computed(() => {
-    const text = this.filterText();
-    return this.allContent().filter((item) =>
-      item.title.toLowerCase().includes(text),
-    );
-  });
-
-  filterSearch(event: Event) {
-    const val = (event.target as HTMLInputElement).value;
-    this.filterText.set(val);
   }
 
   toggleBookmark(index: number) {
     const current = this.bookmarkedItems();
     current[index] = !current[index];
     this.bookmarkedItems.set([...current]);
+  }
+
+  onSelect(index: number) {
+    this.selectedIndex = index;
   }
 }
