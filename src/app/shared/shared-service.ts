@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class SharedService {
   private moviesUrl = `http://localhost:5000/api/movies`;
   private tvSeriesURL = `http://localhost:5000/api/tv`;
+  private allTVshowsAndMovies = `http://localhost:5000/api`;
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,10 @@ export class SharedService {
   }
 
   getTvSeries(): Observable<MovieInterface[]> {
-    return this.http.get<any>(this.tvSeriesURL);
+    return this.http.get<MovieInterface[]>(this.tvSeriesURL);
+  }
+
+  getAllBookMarked(): Observable<MovieInterface[]> {
+    return this.http.get<MovieInterface[]>(this.allTVshowsAndMovies);
   }
 }

@@ -1,17 +1,28 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { SharedService } from '../../shared/shared-service';
 import { MovieInterface } from './movie.interface';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-movies',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './movies.html',
   styleUrl: './movies.scss',
 })
 export class Movies implements OnInit {
-  movieList: MovieInterface[] = [];
+  movieList = signal<MovieInterface[]>([]);
   filterText = signal('');
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
+
+  displayMoviesFilter = computed(() => {
+    const text = this.filterText().toLowerCase();
+
+    if (!text) return this.movieList();
+
+    return this.movieList().filter((item) =>
+      item.title.toLowerCase().includes(text),
+    );
+  });
 
   constructor(private sharedService: SharedService) {}
 
@@ -21,7 +32,7 @@ export class Movies implements OnInit {
 
   displayMovies() {
     this.sharedService.getAllMovies().subscribe((movies) => {
-      this.movieList = movies;
+      this.movieList.set(movies);
     });
   }
 
