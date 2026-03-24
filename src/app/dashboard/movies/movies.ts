@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MoviesData } from './movies-data';
+import { Component, OnInit, signal } from '@angular/core';
+import { SharedService } from '../../shared/shared-service';
 import { MovieInterface } from './movie.interface';
 @Component({
   selector: 'app-movies',
@@ -9,15 +9,29 @@ import { MovieInterface } from './movie.interface';
 })
 export class Movies implements OnInit {
   movieList: MovieInterface[] = [];
-  constructor(private movieService: MoviesData) {}
+  filterText = signal('');
+  bookmarkedItems = signal<Record<string, boolean>>({});
+  selectedItem: MovieInterface | null = null;
+
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
     this.displayMovies();
   }
 
   displayMovies() {
-    this.movieService.getAllMovies().subscribe((movies) => {
+    this.sharedService.getAllMovies().subscribe((movies) => {
       this.movieList = movies;
     });
+  }
+
+  toggleBookmark(item: MovieInterface) {
+    const current = this.bookmarkedItems();
+    current[item.title] = !current[item.title];
+    this.bookmarkedItems.set({ ...current });
+  }
+
+  onSelect(item: MovieInterface) {
+    this.selectedItem = item;
   }
 }

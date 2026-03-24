@@ -47,8 +47,8 @@ export class Dashboardhome {
 
   toggleBookmark(item: MovieInterface) {
     const current = this.bookmarkedItems();
-    current[item.title] = !current[item.title]; // toggle by unique key
-    this.bookmarkedItems.set({ ...current }); // update signal
+    current[item.title] = !current[item.title];
+    this.bookmarkedItems.set({ ...current });
   }
 
   onSelect(item: MovieInterface) {
