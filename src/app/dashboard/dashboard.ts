@@ -18,7 +18,7 @@ export class DashboardMenu {
   dashboardImg: string = 'assets/dashboard-grey.png';
   movie: string = 'assets/movie.png';
   tv: string = 'assets/icon-tv.png';
-  bookmark: string = 'assets/bookmark.png';
+  bookmark: string = 'assets/bookmark-grey.png';
   profile: string = 'assets/person.png';
   selectedMenu: string = '';
 

@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
-import { Dashboardservice } from './dashboardservice';
+import { SharedService } from '../../shared/shared-service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -23,7 +23,7 @@ export class Dashboardhome {
       .sort((a, b) => a.title.localeCompare(b.title));
   });
 
-  constructor(private movieService: Dashboardservice) {}
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
     this.loadAllContent();
@@ -31,8 +31,8 @@ export class Dashboardhome {
 
   loadAllContent() {
     forkJoin({
-      movies: this.movieService.getAllMovies(),
-      series: this.movieService.getTvSeries(),
+      movies: this.sharedService.getAllMovies(),
+      series: this.sharedService.getTvSeries(),
     }).subscribe(({ movies, series }) => {
       const combined = [...movies, ...series];
 
