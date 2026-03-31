@@ -7,7 +7,7 @@
     placeholder="Search for movies"
     required
   />
-  <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Movies</h1>
+  <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Tv Series</h1>
   <div class="h-[1080px] grid grid-cols-3 gap-[70px] overflow-y-auto scrollbar">
     @if (displayTvSeriesFilter().length > 0) {
       @for (item of displayTvSeriesFilter(); track $index; let i = $index) {

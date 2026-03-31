@@ -12,16 +12,11 @@ import { CommonModule } from '@angular/common';
 })
 export class Dashboardhome {
   allContent = signal<MovieInterface[]>([]);
+  allTrending = signal<MovieInterface[]>([]);
   filterText = signal('');
+  allShows: MovieInterface[] | null = null;
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
-
-  displayItems = computed(() => {
-    const text = this.filterText().toLowerCase();
-    return this.allContent()
-      .filter((item) => item.title.toLowerCase().includes(text))
-      .sort((a, b) => a.title.localeCompare(b.title));
-  });
 
   constructor(private sharedService: SharedService) {}
 
@@ -30,18 +25,17 @@ export class Dashboardhome {
   }
 
   loadAllContent() {
-    forkJoin({
-      movies: this.sharedService.getAllMovies(),
-      series: this.sharedService.getTvSeries(),
-    }).subscribe(({ movies, series }) => {
-      const combined = [...movies, ...series];
-
-      combined.sort((a, b) => a.title.localeCompare(b.title));
-      this.allContent.set(combined);
-
-      const bookmarks: Record<string, boolean> = {};
-      combined.forEach((item) => (bookmarks[item.title] = false));
-      this.bookmarkedItems.set(bookmarks);
+    this.sharedService.getAllEntertainment().subscribe((all) => {
+      this.allShows = all
+        .filter((item) =>
+          item.title.toLowerCase().includes(this.filterText().toLowerCase()),
+        )
+        .sort((a, b) => a.title.localeCompare(b.title));
+      this.allTrending.set(
+        all
+          .filter((item) => item.isTrending)
+          .sort((a, b) => a.title.localeCompare(b.title)),
+      );
     });
   }
 

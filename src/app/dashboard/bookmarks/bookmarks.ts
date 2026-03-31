@@ -10,6 +10,7 @@ import { SharedService } from '../../shared/shared-service';
 })
 export class Bookmarks implements OnInit {
   allBookMarked = signal<MovieInterface[]>([]);
+  allBookmarks: MovieInterface[] | null = null;
   filterText = signal('');
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
@@ -31,10 +32,10 @@ export class Bookmarks implements OnInit {
   }
 
   displayAllBookMarked() {
-    this.sharedService.getAllBookMarked().subscribe((bookmarked) => {
-      const bookMarkedOnly = bookmarked.filter(
-        (m: MovieInterface) => m.isBookmarked,
-      );
+    this.sharedService.getAllEntertainment().subscribe((bookmarked) => {
+      const bookMarkedOnly = bookmarked
+        .filter((m: MovieInterface) => m.isBookmarked)
+        .sort((a, b) => a.title.localeCompare(b.title));
       this.allBookMarked.set(bookMarkedOnly);
     });
   }

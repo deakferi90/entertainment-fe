@@ -10,6 +10,7 @@ import { SharedService } from '../../shared/shared-service';
 })
 export class TvSeries {
   tvSeriesList = signal<MovieInterface[]>([]);
+  allSeries: MovieInterface[] | null = null;
   filterText = signal('');
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
@@ -27,12 +28,20 @@ export class TvSeries {
   constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.displayMovies();
+    this.displayTvSeries();
   }
 
-  displayMovies() {
-    this.sharedService.getTvSeries().subscribe((tvSeries) => {
-      this.tvSeriesList.set(tvSeries);
+  displayTvSeries() {
+    this.sharedService.getAllEntertainment().subscribe((data) => {
+      const filtered = data
+        .filter((item) => item.category === 'TV Series')
+        .sort((a, b) => a.title.localeCompare(b.title));
+
+      this.tvSeriesList.set(filtered);
+
+      this.allSeries = filtered.filter((item) =>
+        item.title.toLowerCase().includes(this.filterText().toLowerCase()),
+      );
     });
   }
 
