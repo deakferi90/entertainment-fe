@@ -26,18 +26,23 @@ export class Dashboardhome {
 
   loadAllContent() {
     this.sharedService.getAllEntertainment().subscribe((all) => {
-      this.allShows = all
-        .filter((item) =>
-          item.title.toLowerCase().includes(this.filterText().toLowerCase()),
-        )
-        .sort((a, b) => a.title.localeCompare(b.title));
-      this.allTrending.set(
-        all
-          .filter((item) => item.isTrending)
-          .sort((a, b) => a.title.localeCompare(b.title)),
-      );
+      this.allContent.set(all);
     });
   }
+
+  filteredShows = computed(() => {
+    const text = this.filterText().toLowerCase();
+
+    return this.allContent()
+      .filter((item) => item.title.toLowerCase().includes(text))
+      .sort((a, b) => a.title.localeCompare(b.title));
+  });
+
+  trending = computed(() => {
+    return this.allContent()
+      .filter((item) => item.isTrending)
+      .sort((a, b) => a.title.localeCompare(b.title));
+  });
 
   toggleBookmark(item: MovieInterface) {
     const current = this.bookmarkedItems();
