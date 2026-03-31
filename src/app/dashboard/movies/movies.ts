@@ -1,7 +1,8 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { SharedService } from '../../shared/shared-service';
 import { MovieInterface } from './movie.interface';
 import { CommonModule } from '@angular/common';
+import { Shared } from '../../shared/shared';
 @Component({
   selector: 'app-movies',
   imports: [CommonModule],
@@ -15,6 +16,7 @@ export class Movies implements OnInit {
   changeValue = signal(false);
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
+  shared = inject(Shared);
 
   displayMoviesFilter = computed(() => {
     const text = this.filterText().toLowerCase();
@@ -33,17 +35,10 @@ export class Movies implements OnInit {
   }
 
   displayMovies() {
-    this.sharedService.getAllEntertainment().subscribe((data) => {
-      const filtered = data
-        .filter((item) => item.category === 'Movie')
-        .sort((a, b) => a.title.localeCompare(b.title));
-
-      this.movieList.set(filtered);
-
-      this.allMovies = filtered.filter((item) =>
-        item.title.toLowerCase().includes(this.filterText().toLowerCase()),
-      );
-    });
+    this.shared.processEntertainment(
+      (item) => item.category === 'Movie',
+      this.movieList,
+    );
   }
 
   toggleBookmark(item: MovieInterface) {

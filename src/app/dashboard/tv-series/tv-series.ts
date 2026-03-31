@@ -1,6 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
+import { Shared } from '../../shared/shared';
 
 @Component({
   selector: 'app-tv-series',
@@ -14,6 +15,7 @@ export class TvSeries {
   filterText = signal('');
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
+  shared = inject(Shared);
 
   displayTvSeriesFilter = computed(() => {
     const text = this.filterText().toLowerCase();
@@ -32,17 +34,10 @@ export class TvSeries {
   }
 
   displayTvSeries() {
-    this.sharedService.getAllEntertainment().subscribe((data) => {
-      const filtered = data
-        .filter((item) => item.category === 'TV Series')
-        .sort((a, b) => a.title.localeCompare(b.title));
-
-      this.tvSeriesList.set(filtered);
-
-      this.allSeries = filtered.filter((item) =>
-        item.title.toLowerCase().includes(this.filterText().toLowerCase()),
-      );
-    });
+    this.shared.processEntertainment(
+      (item) => item.category === 'TV Series',
+      this.tvSeriesList,
+    );
   }
 
   toggleBookmark(item: MovieInterface) {
