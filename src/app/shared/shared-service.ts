@@ -12,7 +12,14 @@ export class SharedService {
   constructor(private http: HttpClient) {}
 
   getAllEntertainment(): Observable<MovieInterface[]> {
-    return this.http.get<MovieInterface[]>(this.allTVshowsAndMovies);
+    return this.http.get<any[]>(this.allTVshowsAndMovies).pipe(
+      map((items) =>
+        items.map((item) => ({
+          ...item,
+          id: item._id,
+        })),
+      ),
+    );
   }
 
   getMovies() {
@@ -25,5 +32,29 @@ export class SharedService {
     return this.getAllEntertainment().pipe(
       map((items) => items.filter((i) => i.category === 'TV Series')),
     );
+  }
+
+  toggleBookmark(item: MovieInterface) {
+    console.log('Toggling bookmark for:', item);
+
+    const previous = item.isBookmarked;
+
+    item.isBookmarked = !previous;
+
+    this.http
+      .put(`${this.allTVshowsAndMovies}/bookmarks/${item.id}`, {
+        isBookmarked: item.isBookmarked,
+      })
+      .subscribe({
+        next: () => {
+          console.log('Bookmark updated on server');
+        },
+        error: (err) => {
+          console.error('Failed to update bookmark', err);
+
+          // ❗ rollback if API fails
+          item.isBookmarked = previous;
+        },
+      });
   }
 }

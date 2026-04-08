@@ -1,12 +1,13 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
-import { forkJoin } from 'rxjs';
+import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
+import { EntertaimentState } from '../../shared/entertaiment-state';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboardhome',
-  imports: [CommonModule],
+  imports: [CommonModule, SharedBookmark],
   templateUrl: './dashboardhome.html',
   styleUrls: ['./dashboardhome.scss'],
 })
@@ -17,11 +18,15 @@ export class Dashboardhome {
   allShows: MovieInterface[] | null = null;
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
+  store = inject(EntertaimentState);
 
   constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
     this.loadAllContent();
+    this.sharedService.getAllEntertainment().subscribe((data) => {
+      this.store.setItems(data);
+    });
   }
 
   loadAllContent() {
@@ -45,9 +50,8 @@ export class Dashboardhome {
   });
 
   toggleBookmark(item: MovieInterface) {
-    const current = this.bookmarkedItems();
-    current[item.title] = !current[item.title];
-    this.bookmarkedItems.set({ ...current });
+    console.log('Toggling bookmark for:', item);
+    this.sharedService.toggleBookmark(item);
   }
 
   onSelect(item: MovieInterface) {

@@ -2,10 +2,11 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { Shared } from '../../shared/shared';
+import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
 
 @Component({
   selector: 'app-bookmarks',
-  imports: [],
+  imports: [SharedBookmark],
   templateUrl: './bookmarks.html',
   styleUrl: './bookmarks.scss',
 })
@@ -41,9 +42,7 @@ export class Bookmarks implements OnInit {
   }
 
   toggleBookmark(item: MovieInterface) {
-    const current = this.bookmarkedItems();
-    current[item.title] = !current[item.title];
-    this.bookmarkedItems.set({ ...current });
+    this.sharedService.toggleBookmark(item);
   }
 
   onSelect(item: MovieInterface) {

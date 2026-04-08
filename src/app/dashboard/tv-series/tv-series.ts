@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { Shared } from '../../shared/shared';
+import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
 
 @Component({
   selector: 'app-tv-series',
-  imports: [],
+  imports: [SharedBookmark],
   templateUrl: './tv-series.html',
   styleUrl: './tv-series.scss',
 })
@@ -41,9 +42,7 @@ export class TvSeries {
   }
 
   toggleBookmark(item: MovieInterface) {
-    const current = this.bookmarkedItems();
-    current[item.title] = !current[item.title];
-    this.bookmarkedItems.set({ ...current });
+    this.sharedService.toggleBookmark(item);
   }
 
   onSelect(item: MovieInterface) {

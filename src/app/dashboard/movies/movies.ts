@@ -3,9 +3,10 @@ import { SharedService } from '../../shared/shared-service';
 import { MovieInterface } from './movie.interface';
 import { CommonModule } from '@angular/common';
 import { Shared } from '../../shared/shared';
+import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
 @Component({
   selector: 'app-movies',
-  imports: [CommonModule],
+  imports: [CommonModule, SharedBookmark],
   templateUrl: './movies.html',
   styleUrl: './movies.scss',
 })
@@ -13,7 +14,6 @@ export class Movies implements OnInit {
   movieList = signal<MovieInterface[]>([]);
   allMovies: MovieInterface[] | null = null;
   filterText = signal('');
-  changeValue = signal(false);
   bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
   shared = inject(Shared);
@@ -42,7 +42,7 @@ export class Movies implements OnInit {
   }
 
   toggleBookmark(item: MovieInterface) {
-    item.isBookmarked = !item.isBookmarked;
+    this.sharedService.toggleBookmark(item);
   }
 
   onSelect(item: MovieInterface) {
