@@ -43,6 +43,7 @@ export class Bookmarks implements OnInit {
 
   toggleBookmark(item: MovieInterface) {
     this.sharedService.toggleBookmark(item);
+    this.displayAllBookMarked();
   }
 
   onSelect(item: MovieInterface) {
