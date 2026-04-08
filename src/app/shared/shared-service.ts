@@ -1,15 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MovieInterface } from '../dashboard/movies/movie.interface';
 import { map, Observable } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
   private allTVshowsAndMovies = `http://localhost:5000/api`;
-  private router = inject(Router);
 
   constructor(private http: HttpClient) {}
 
@@ -50,9 +48,6 @@ export class SharedService {
       .subscribe({
         next: () => {
           console.log('Bookmark updated on server');
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate([this.router.url]);
         },
         error: (err) => {
           console.error('Failed to update bookmark', err);

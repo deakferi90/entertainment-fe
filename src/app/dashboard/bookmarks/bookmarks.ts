@@ -50,7 +50,6 @@ export class Bookmarks implements OnInit {
 
   toggleBookmark(item: MovieInterface) {
     this.sharedService.toggleBookmark(item);
-    console.log('Toggled bookmark for:', item);
     if (!item.isBookmarked) {
       this.allBookMarked.set(
         this.allBookMarked().filter((i) => i.id !== item.id),

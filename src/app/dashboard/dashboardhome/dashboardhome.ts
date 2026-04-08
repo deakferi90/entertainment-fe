@@ -4,6 +4,7 @@ import { SharedService } from '../../shared/shared-service';
 import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
 import { EntertaimentState } from '../../shared/entertaiment-state';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboardhome',
@@ -20,7 +21,10 @@ export class Dashboardhome {
   selectedItem: MovieInterface | null = null;
   store = inject(EntertaimentState);
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.loadAllContent();
@@ -50,8 +54,10 @@ export class Dashboardhome {
   });
 
   toggleBookmark(item: MovieInterface) {
-    console.log('Toggling bookmark for:', item);
     this.sharedService.toggleBookmark(item);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
   }
 
   onSelect(item: MovieInterface) {
