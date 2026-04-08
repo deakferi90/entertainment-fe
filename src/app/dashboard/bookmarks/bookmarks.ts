@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { Shared } from '../../shared/shared';
@@ -43,7 +50,12 @@ export class Bookmarks implements OnInit {
 
   toggleBookmark(item: MovieInterface) {
     this.sharedService.toggleBookmark(item);
-    this.displayAllBookMarked();
+    console.log('Toggled bookmark for:', item);
+    if (!item.isBookmarked) {
+      this.allBookMarked.set(
+        this.allBookMarked().filter((i) => i.id !== item.id),
+      );
+    }
   }
 
   onSelect(item: MovieInterface) {
