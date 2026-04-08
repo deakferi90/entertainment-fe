@@ -32,7 +32,6 @@ export class Signup {
   signupForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    // All controls must be part of this FormGroup
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: [
@@ -65,7 +64,7 @@ export class Signup {
     this.authService.signup(this.signupForm.value).subscribe({
       next: (res: any) => {
         this.toastr.success('You successfully signed up!');
-        this.router.navigate(['/login']); // redirect after signup
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         this.toastr.error(err.error?.message || 'Signup failed');

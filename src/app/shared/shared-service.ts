@@ -52,7 +52,6 @@ export class SharedService {
         error: (err) => {
           console.error('Failed to update bookmark', err);
 
-          // ❗ rollback if API fails
           item.isBookmarked = previous;
         },
       });
