@@ -34,24 +34,12 @@ export class SharedService {
     );
   }
 
-  toggleBookmark(item: MovieInterface) {
-    const previous = item.isBookmarked;
-
-    item.isBookmarked = !previous;
-
-    this.http
-      .put(`${this.allTVshowsAndMovies}/bookmarks/${item.id}`, {
+  toggleBookmark(item: MovieInterface): Observable<void> {
+    return this.http.put<void>(
+      `${this.allTVshowsAndMovies}/bookmarks/${item.id}`,
+      {
         isBookmarked: item.isBookmarked,
-      })
-      .subscribe({
-        next: () => {
-          console.log('Bookmark updated on server');
-        },
-        error: (err) => {
-          console.error('Failed to update bookmark', err);
-
-          item.isBookmarked = previous;
-        },
-      });
+      },
+    );
   }
 }

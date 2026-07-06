@@ -3,6 +3,7 @@ import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { Shared } from '../../shared/shared';
 import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tv-series',
@@ -28,7 +29,10 @@ export class TvSeries {
     );
   });
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.displayTvSeries();
@@ -42,7 +46,16 @@ export class TvSeries {
   }
 
   toggleBookmark(item: MovieInterface) {
-    this.sharedService.toggleBookmark(item);
+    this.sharedService.toggleBookmark(item).subscribe({
+      next: () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.navigate([this.router.url]);
+      },
+      error: (err) => {
+        item.isBookmarked = !item.isBookmarked;
+        console.error(err);
+      },
+    });
   }
 
   onSelect(item: MovieInterface) {

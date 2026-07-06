@@ -4,6 +4,7 @@ import { MovieInterface } from './movie.interface';
 import { CommonModule } from '@angular/common';
 import { Shared } from '../../shared/shared';
 import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-movies',
   imports: [CommonModule, SharedBookmark],
@@ -28,7 +29,10 @@ export class Movies implements OnInit {
     );
   });
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.displayMovies();
@@ -42,7 +46,16 @@ export class Movies implements OnInit {
   }
 
   toggleBookmark(item: MovieInterface) {
-    this.sharedService.toggleBookmark(item);
+    this.sharedService.toggleBookmark(item).subscribe({
+      next: () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.navigate([this.router.url]);
+      },
+      error: (err) => {
+        item.isBookmarked = !item.isBookmarked;
+        console.error(err);
+      },
+    });
   }
 
   onSelect(item: MovieInterface) {

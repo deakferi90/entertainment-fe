@@ -54,9 +54,18 @@ export class Dashboardhome {
   });
 
   toggleBookmark(item: MovieInterface) {
-    this.sharedService.toggleBookmark(item);
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.navigate([this.router.url]);
+    item.isBookmarked = !item.isBookmarked;
+
+    this.sharedService.toggleBookmark(item).subscribe({
+      next: () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.navigate([this.router.url]);
+      },
+      error: (err) => {
+        item.isBookmarked = !item.isBookmarked;
+        console.error(err);
+      },
+    });
   }
 
   onSelect(item: MovieInterface) {
