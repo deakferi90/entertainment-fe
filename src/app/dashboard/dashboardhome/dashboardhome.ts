@@ -56,7 +56,6 @@ export class Dashboardhome {
   toggleBookmark(item: MovieInterface) {
     this.sharedService.toggleBookmark(item);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([this.router.url]);
   }
 

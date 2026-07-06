@@ -35,8 +35,6 @@ export class SharedService {
   }
 
   toggleBookmark(item: MovieInterface) {
-    console.log('Toggling bookmark for:', item);
-
     const previous = item.isBookmarked;
 
     item.isBookmarked = !previous;
