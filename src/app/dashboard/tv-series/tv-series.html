@@ -9,7 +9,7 @@
   />
   <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Tv Series</h1>
   <div
-    class="min-h-[1080px] grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] overflow-y-auto scrollbar justify-items-center"
+    class="min-h-[1080px] grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] justify-items-center"
   >
     @if (displayTvSeriesFilter().length > 0) {
       @for (item of displayTvSeriesFilter(); track $index; let i = $index) {
