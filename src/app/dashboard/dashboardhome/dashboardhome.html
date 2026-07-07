@@ -8,7 +8,9 @@
     required
   />
   <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Trending</h1>
-  <div class="grid grid-cols-3 gap-6 text-white">
+  <div
+    class="min-h-[1080px] grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] overflow-y-auto scrollbar justify-items-center text-white"
+  >
     @for (item of store.trendingItems(); track $index; let i = $index) {
       @if (item.isTrending === true) {
         <div class="relative w-[328px] h-[220px]">
@@ -37,7 +39,7 @@
   </div>
   <h1 class="text-white text-3xl mt-[25px] mb-[20px]">Recommended for you</h1>
   <div
-    class="mr-[20px] grid grid-cols-4 gap-8 text-white h-[600px] overflow-y-auto scrollbar"
+    class="mr-[20px] min-h-[1080px] grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] overflow-y-auto scrollbar justify-items-center"
   >
     @for (item of filteredShows(); track $index; let i = $index) {
       <div class="text-white relative w-[328px]">
