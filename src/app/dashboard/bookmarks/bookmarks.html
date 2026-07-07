@@ -9,7 +9,7 @@
   />
   <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Bookmarked Movies</h1>
   <div
-    class="min-h-[720px] grid grid-cols-3 gap-[70px] overflow-y-auto scrollbar"
+    class="min-h-[720px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[70px] overflow-y-auto scrollbar justify-items-center"
   >
     @if (displayBookmarkedItems().length > 0) {
       @for (item of displayBookmarkedItems(); track $index; let i = $index) {
