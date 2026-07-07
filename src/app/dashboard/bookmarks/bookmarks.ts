@@ -53,6 +53,7 @@ export class Bookmarks implements OnInit {
   }
 
   toggleBookmark(item: MovieInterface) {
+    item.isBookmarked = !item.isBookmarked;
     this.sharedService.toggleBookmark(item).subscribe({
       next: () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
