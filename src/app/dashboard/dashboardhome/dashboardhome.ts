@@ -4,7 +4,6 @@ import { SharedService } from '../../shared/shared-service';
 import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
 import { EntertaimentState } from '../../shared/entertaiment-state';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboardhome',
@@ -14,28 +13,20 @@ import { Router } from '@angular/router';
 })
 export class Dashboardhome {
   allContent = signal<MovieInterface[]>([]);
-  allTrending = signal<MovieInterface[]>([]);
   filterText = signal('');
-  allShows: MovieInterface[] | null = null;
-  bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
   store = inject(EntertaimentState);
 
-  constructor(
-    private sharedService: SharedService,
-    private router: Router,
-  ) {}
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit() {
     this.loadAllContent();
-    this.sharedService.getAllEntertainment().subscribe((data) => {
-      this.store.setItems(data);
-    });
   }
 
   loadAllContent() {
-    this.sharedService.getAllEntertainment().subscribe((all) => {
-      this.allContent.set(all);
+    this.sharedService.getAllEntertainment().subscribe((data) => {
+      this.allContent.set(data);
+      this.store.setItems(data);
     });
   }
 
@@ -58,13 +49,18 @@ export class Dashboardhome {
 
     this.sharedService.toggleBookmark(item).subscribe({
       next: () => {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.navigate([this.router.url]);
+        this.loadAllContent();
       },
       error: (err) => {
         item.isBookmarked = !item.isBookmarked;
         console.error(err);
       },
+    });
+  }
+
+  refreshData() {
+    this.sharedService.getAllEntertainment().subscribe((movies) => {
+      this.allContent.set(movies);
     });
   }
 

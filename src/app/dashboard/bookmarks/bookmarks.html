@@ -4,12 +4,14 @@
     id="first_name"
     (input)="filterText.set($any($event.target).value)"
     class="bg-neutral-secondary-medium border border-white text-heading text-white text-sm rounded-base focus:ring-brand focus:border-brand block px-3 py-2.5 shadow-xs placeholder:text-body w-4/5"
-    placeholder="Search for movies"
+    placeholder="Search for movies or TV series"
     required
   />
-  <h1 class="text-white text-3xl mt-[20px] mb-[20px]">Bookmarked Movies</h1>
+  <h1 class="text-white text-3xl mt-[20px] mb-[20px]">
+    Bookmarked Movies and Series
+  </h1>
   <div
-    class="min-h-[1080px] grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] justify-items-center"
+    class="grid grid-cols-1 min-[900px]:grid-cols-2 xl:grid-cols-3 gap-x-[60px] gap-y-[70px] justify-items-center gap-20"
   >
     @if (displayBookmarkedItems().length > 0) {
       @for (item of displayBookmarkedItems(); track $index; let i = $index) {

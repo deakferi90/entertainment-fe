@@ -15,7 +15,6 @@ export class TvSeries {
   tvSeriesList = signal<MovieInterface[]>([]);
   allSeries: MovieInterface[] | null = null;
   filterText = signal('');
-  bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
   shared = inject(Shared);
 

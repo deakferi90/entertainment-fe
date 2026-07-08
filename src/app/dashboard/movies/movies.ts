@@ -15,7 +15,6 @@ export class Movies implements OnInit {
   movieList = signal<MovieInterface[]>([]);
   allMovies: MovieInterface[] | null = null;
   filterText = signal('');
-  bookmarkedItems = signal<Record<string, boolean>>({});
   selectedItem: MovieInterface | null = null;
   shared = inject(Shared);
 
