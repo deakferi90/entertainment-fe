@@ -63,10 +63,6 @@ export class Login {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
-      return;
-    }
-
     this.authService.login(this.loginForm.value).subscribe(
       (response: any) => {
         this.authService.saveToken(response.token);
