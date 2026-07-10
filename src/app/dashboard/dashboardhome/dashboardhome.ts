@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { SharedBookmark } from '../../shared/shared-bookmark/shared-bookmark';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-dashboardhome',
   imports: [CommonModule, SharedBookmark],
   templateUrl: './dashboardhome.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./dashboardhome.scss'],
 })
 export class Dashboardhome {

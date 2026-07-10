@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
 import { Shared } from '../../shared/shared';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-tv-series',
   imports: [SharedBookmark],
   templateUrl: './tv-series.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './tv-series.scss',
 })
 export class TvSeries {

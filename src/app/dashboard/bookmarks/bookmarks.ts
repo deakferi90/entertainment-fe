@@ -5,6 +5,7 @@ import {
   inject,
   OnInit,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { MovieInterface } from '../movies/movie.interface';
 import { SharedService } from '../../shared/shared-service';
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
   selector: 'app-bookmarks',
   imports: [SharedBookmark],
   templateUrl: './bookmarks.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './bookmarks.scss',
 })
 export class Bookmarks implements OnInit {

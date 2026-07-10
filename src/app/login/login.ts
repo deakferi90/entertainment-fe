@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -25,6 +25,7 @@ import { AuthService } from '../auth/auth.service';
     MatIconModule,
   ],
   templateUrl: './login.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./login.scss'],
 })
 export class Login {

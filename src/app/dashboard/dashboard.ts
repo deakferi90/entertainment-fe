@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   NavigationEnd,
   Router,
@@ -11,6 +11,7 @@ import { filter } from 'rxjs';
   selector: 'app-dashboard',
   imports: [RouterLink, RouterOutlet],
   templateUrl: './dashboard.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dashboard.scss',
 })
 export class DashboardMenu {

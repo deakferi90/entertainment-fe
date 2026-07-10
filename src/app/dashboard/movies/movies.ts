@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from '../../shared/shared-service';
 import { MovieInterface } from './movie.interface';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-movies',
   imports: [CommonModule, SharedBookmark],
   templateUrl: './movies.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './movies.scss',
 })
 export class Movies implements OnInit {
